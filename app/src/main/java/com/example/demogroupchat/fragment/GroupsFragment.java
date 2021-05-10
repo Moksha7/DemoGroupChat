@@ -25,12 +25,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-
 public class GroupsFragment extends Fragment {
 
     private View groupFragmentView;
     private ListView list_view;
-    private  ArrayAdapter<String> arrayAdapter;
+    private ArrayAdapter<String> arrayAdapter;
     private final ArrayList<String> list_of_groups = new ArrayList<>();
     private DatabaseReference groupRef;
 

@@ -58,7 +58,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void RetrieveUserInfo() {
 
-        if(senderUserId.equals(receiverUserId)){
+        if (senderUserId.equals(receiverUserId)) {
             btnSendMessageRequest.setEnabled(false);
             btnSendMessageRequest.setVisibility(View.INVISIBLE);
         }
@@ -90,14 +90,14 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void SendChatRequest() {
-        if(btnSendMessageRequest.getText().equals("Cancel Invited")){
+        if (btnSendMessageRequest.getText().equals("Cancel Invited")) {
             chatRequestRef.child(senderUserId).child(receiverUserId)
                     .removeValue().addOnCompleteListener(task -> {
-                        if(task.isSuccessful()){
-                            chatRequestRef.child(receiverUserId).child(senderUserId)
-                                    .removeValue();
-                        }
-                    });
+                if (task.isSuccessful()) {
+                    chatRequestRef.child(receiverUserId).child(senderUserId)
+                            .removeValue();
+                }
+            });
             btnSendMessageRequest.setText(R.string.add_friend);
             return;
         }

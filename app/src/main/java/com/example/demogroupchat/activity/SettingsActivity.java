@@ -80,7 +80,7 @@ public class SettingsActivity extends AppCompatActivity {
         rootRef.child("Users").child(currentUserID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()) {
+                if (dataSnapshot.exists()) {
                     if (dataSnapshot.hasChild("name")) {
                         String retrieveUserName = Objects.requireNonNull(dataSnapshot.child("name").getValue()).toString();
                         etUserName.setText(retrieveUserName);
@@ -93,8 +93,7 @@ public class SettingsActivity extends AppCompatActivity {
                         String retrieveProfileImage = Objects.requireNonNull(dataSnapshot.child("image").getValue()).toString();
                         Picasso.get().load(retrieveProfileImage).into(civUserProfileImage);
                     }
-                }
-                else {
+                } else {
                     Toast.makeText(SettingsActivity.this, "Please set & update profile...", Toast.LENGTH_LONG).show();
                 }
             }
@@ -174,19 +173,19 @@ public class SettingsActivity extends AppCompatActivity {
                 final StorageReference filePath = userProfileImageRef.child(currentUserID + ".jpg");
 
                 filePath.putFile(resultUri)
-                .continueWithTask(task -> {
-                    if (!task.isSuccessful()) {
-                        throw Objects.requireNonNull(task.getException());
-                    }
-                    // Continue with the task to get the download URL
-                    return filePath.getDownloadUrl();
-                }).addOnCompleteListener(task -> {
+                        .continueWithTask(task -> {
+                            if (!task.isSuccessful()) {
+                                throw Objects.requireNonNull(task.getException());
+                            }
+                            // Continue with the task to get the download URL
+                            return filePath.getDownloadUrl();
+                        }).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         final String downloadUri = Objects.requireNonNull(task.getResult()).toString();
                         rootRef.child("Users").child(currentUserID).child("image")
                                 .setValue(downloadUri)
                                 .addOnCompleteListener(task1 -> {
-                                    if(task1.isSuccessful()) {
+                                    if (task1.isSuccessful()) {
                                         // Toast.makeText(SettingsActivity.this, "Image save on database, successfully...", Toast.LENGTH_SHORT).show();
                                         loadingBar.dismiss();
                                     } else {

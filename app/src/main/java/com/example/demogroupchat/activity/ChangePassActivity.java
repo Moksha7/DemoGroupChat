@@ -51,15 +51,15 @@ public class ChangePassActivity extends AppCompatActivity {
                     }
                 });
             } else {
-                Toast.makeText(ChangePassActivity.this,"Authentication failed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ChangePassActivity.this, "Authentication failed", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void InitializeField() {
-        etEmail =  findViewById(R.id.change_pass_email);
-        etOldPass =  findViewById(R.id.change_pass_password);
-        etNewPass =  findViewById(R.id.change_pass_new_password);
-        btnUpdate =  findViewById(R.id.change_pass_button);
+        etEmail = findViewById(R.id.change_pass_email);
+        etOldPass = findViewById(R.id.change_pass_password);
+        etNewPass = findViewById(R.id.change_pass_new_password);
+        btnUpdate = findViewById(R.id.change_pass_button);
     }
 }

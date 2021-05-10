@@ -63,8 +63,8 @@ public class RequestsFragment extends Fragment {
 
         FirebaseRecyclerOptions<Contacts> options =
                 new FirebaseRecyclerOptions.Builder<Contacts>()
-                    .setQuery(chatRequestsRef.child(currentUserId), Contacts.class)
-                .build();
+                        .setQuery(chatRequestsRef.child(currentUserId), Contacts.class)
+                        .build();
 
         final FirebaseRecyclerAdapter<Contacts, RequestsViewHolder> adapter =
                 new FirebaseRecyclerAdapter<Contacts, RequestsViewHolder>(options) {
@@ -78,14 +78,14 @@ public class RequestsFragment extends Fragment {
                         getTypeRef.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                if(dataSnapshot.exists()){
+                                if (dataSnapshot.exists()) {
                                     String type = Objects.requireNonNull(dataSnapshot.getValue()).toString();
-                                    if(type.equals("received")){
+                                    if (type.equals("received")) {
                                         assert listUserId != null;
                                         userRef.child(listUserId).addValueEventListener(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                                if(dataSnapshot.hasChild("image")){
+                                                if (dataSnapshot.hasChild("image")) {
                                                     final String requestProfileImage = Objects.requireNonNull(dataSnapshot.child("image").getValue()).toString();
                                                     Picasso.get().load(requestProfileImage).placeholder(R.drawable.profile_image).into(holder.profileImage);
                                                 }
@@ -98,33 +98,33 @@ public class RequestsFragment extends Fragment {
                                                 holder.itemView.findViewById(R.id.requests_accept_btn)
                                                         .setOnClickListener(v -> contactsRef.child(currentUserId).child(listUserId).child("Contact")
                                                                 .setValue("Saved").addOnCompleteListener(task -> {
-                                                                    if(task.isSuccessful()){
+                                                                    if (task.isSuccessful()) {
                                                                         contactsRef.child(listUserId).child(currentUserId).child("Contact")
                                                                                 .setValue("Saved").addOnCompleteListener(task1 -> {
-                                                                                    if(task1.isSuccessful()){
-                                                                                        chatRequestsRef.child(currentUserId).child(listUserId)
-                                                                                                .removeValue()
-                                                                                                .addOnCompleteListener(task11 -> {
-                                                                                                    if(task11.isSuccessful()){
-                                                                                                        chatRequestsRef.child(listUserId).child(currentUserId)
-                                                                                                                .removeValue().addOnCompleteListener(task111 -> Toast.makeText(getContext(), "New Contact Saved",Toast.LENGTH_SHORT).show());
-                                                                                                    }
-                                                                                                });
-                                                                                    }
-                                                                                });
+                                                                            if (task1.isSuccessful()) {
+                                                                                chatRequestsRef.child(currentUserId).child(listUserId)
+                                                                                        .removeValue()
+                                                                                        .addOnCompleteListener(task11 -> {
+                                                                                            if (task11.isSuccessful()) {
+                                                                                                chatRequestsRef.child(listUserId).child(currentUserId)
+                                                                                                        .removeValue().addOnCompleteListener(task111 -> Toast.makeText(getContext(), "New Contact Saved", Toast.LENGTH_SHORT).show());
+                                                                                            }
+                                                                                        });
+                                                                            }
+                                                                        });
 
                                                                     }
                                                                 }));
 
                                                 holder.itemView.findViewById(R.id.requests_cancel_btn).setOnClickListener(v -> chatRequestsRef.child(currentUserId).child(listUserId)
                                                         .removeValue().addOnCompleteListener(task -> {
-                                                            if(task.isSuccessful()){
+                                                            if (task.isSuccessful()) {
                                                                 chatRequestsRef.child(listUserId).child(currentUserId)
                                                                         .removeValue().addOnCompleteListener(task12 -> {
-                                                                            if(task12.isSuccessful()){
-                                                                                Toast.makeText(getContext(), "Contact Deleted",Toast.LENGTH_SHORT).show();
-                                                                            }
-                                                                        });
+                                                                    if (task12.isSuccessful()) {
+                                                                        Toast.makeText(getContext(), "Contact Deleted", Toast.LENGTH_SHORT).show();
+                                                                    }
+                                                                });
                                                             }
                                                         }));
 
@@ -137,40 +137,39 @@ public class RequestsFragment extends Fragment {
                                                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                                                     builder.setTitle(requestUserName + " Chat Request");
                                                     builder.setItems(options1, (dialog, which) -> {
-                                                        if(which == 0){
+                                                        if (which == 0) {
                                                             contactsRef.child(currentUserId).child(listUserId).child("Contact")
                                                                     .setValue("Saved").addOnCompleteListener(task -> {
-                                                                        if(task.isSuccessful()){
-                                                                            contactsRef.child(listUserId).child(currentUserId).child("Contact")
-                                                                                    .setValue("Saved").addOnCompleteListener(task13 -> {
-                                                                                        if(task13.isSuccessful()){
-                                                                                            chatRequestsRef.child(currentUserId).child(listUserId)
-                                                                                                    .removeValue()
-                                                                                                    .addOnCompleteListener(task131 -> {
-                                                                                                        if(task131.isSuccessful()){
-                                                                                                            chatRequestsRef.child(listUserId).child(currentUserId)
-                                                                                                                    .removeValue().addOnCompleteListener(task1311 -> Toast.makeText(getContext(), "New Contact Saved",Toast.LENGTH_SHORT).show());
-                                                                                                        }
-                                                                                                    });
+                                                                if (task.isSuccessful()) {
+                                                                    contactsRef.child(listUserId).child(currentUserId).child("Contact")
+                                                                            .setValue("Saved").addOnCompleteListener(task13 -> {
+                                                                        if (task13.isSuccessful()) {
+                                                                            chatRequestsRef.child(currentUserId).child(listUserId)
+                                                                                    .removeValue()
+                                                                                    .addOnCompleteListener(task131 -> {
+                                                                                        if (task131.isSuccessful()) {
+                                                                                            chatRequestsRef.child(listUserId).child(currentUserId)
+                                                                                                    .removeValue().addOnCompleteListener(task1311 -> Toast.makeText(getContext(), "New Contact Saved", Toast.LENGTH_SHORT).show());
                                                                                         }
                                                                                     });
-
                                                                         }
                                                                     });
 
-                                                        }
-                                                        else if(which == 1){
+                                                                }
+                                                            });
+
+                                                        } else if (which == 1) {
                                                             chatRequestsRef.child(currentUserId).child(listUserId)
                                                                     .removeValue().addOnCompleteListener(task -> {
-                                                                        if(task.isSuccessful()){
-                                                                            chatRequestsRef.child(listUserId).child(currentUserId)
-                                                                                    .removeValue().addOnCompleteListener(task14 -> {
-                                                                                        if(task14.isSuccessful()){
-                                                                                            Toast.makeText(getContext(), "Contact Deleted",Toast.LENGTH_SHORT).show();
-                                                                                        }
-                                                                                    });
+                                                                if (task.isSuccessful()) {
+                                                                    chatRequestsRef.child(listUserId).child(currentUserId)
+                                                                            .removeValue().addOnCompleteListener(task14 -> {
+                                                                        if (task14.isSuccessful()) {
+                                                                            Toast.makeText(getContext(), "Contact Deleted", Toast.LENGTH_SHORT).show();
                                                                         }
                                                                     });
+                                                                }
+                                                            });
                                                         }
                                                     });
                                                     builder.show();
@@ -182,8 +181,7 @@ public class RequestsFragment extends Fragment {
 
                                             }
                                         });
-                                    }
-                                    else if(type.equals("sent")){
+                                    } else if (type.equals("sent")) {
                                         Button requestSendBtn = holder.itemView.findViewById(R.id.requests_accept_btn);
                                         requestSendBtn.setText(R.string.req_sent);
                                         holder.itemView.findViewById(R.id.requests_cancel_btn).setVisibility(View.INVISIBLE);
@@ -192,7 +190,7 @@ public class RequestsFragment extends Fragment {
                                             @SuppressLint("SetTextI18n")
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                                if(dataSnapshot.hasChild("image")){
+                                                if (dataSnapshot.hasChild("image")) {
                                                     final String requestProfileImage = Objects.requireNonNull(dataSnapshot.child("image").getValue()).toString();
                                                     Picasso.get().load(requestProfileImage).placeholder(R.drawable.profile_image).into(holder.profileImage);
                                                 }
@@ -208,17 +206,17 @@ public class RequestsFragment extends Fragment {
                                                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                                                     builder.setTitle("Already sent request");
                                                     builder.setItems(options12, (dialog, which) -> {
-                                                        if(which == 0){
+                                                        if (which == 0) {
                                                             chatRequestsRef.child(currentUserId).child(listUserId)
                                                                     .removeValue()
                                                                     .addOnCompleteListener(task -> {
-                                                                        if(task.isSuccessful()){
+                                                                        if (task.isSuccessful()) {
                                                                             chatRequestsRef.child(listUserId)
                                                                                     .child(currentUserId).removeValue().addOnCompleteListener(task15 -> {
-                                                                                        if(task15.isSuccessful()){
-                                                                                            Toast.makeText(getContext(), "You have cancelled  the chat request",Toast.LENGTH_SHORT).show();
-                                                                                        }
-                                                                                    });
+                                                                                if (task15.isSuccessful()) {
+                                                                                    Toast.makeText(getContext(), "You have cancelled  the chat request", Toast.LENGTH_SHORT).show();
+                                                                                }
+                                                                            });
                                                                         }
 
                                                                     });
@@ -244,6 +242,7 @@ public class RequestsFragment extends Fragment {
                             }
                         });
                     }
+
                     @NonNull
                     @Override
                     public RequestsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -255,10 +254,11 @@ public class RequestsFragment extends Fragment {
         adapter.startListening();
     }
 
-    public static class RequestsViewHolder extends  RecyclerView.ViewHolder{
+    public static class RequestsViewHolder extends RecyclerView.ViewHolder {
         TextView userName, userStatus;
         CircleImageView profileImage;
         Button acceptButton, cancelButton;
+
         public RequestsViewHolder(@NonNull View itemView) {
             super(itemView);
             userName = itemView.findViewById(R.id.users_profile_name);

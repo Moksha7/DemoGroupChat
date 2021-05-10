@@ -65,15 +65,14 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onStart(){
+    protected void onStart() {
         super.onStart();
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        if(currentUser == null){
+        if (currentUser == null) {
             SendUserToLoginActivity();
-        }
-        else{
+        } else {
 
             VerifyUserExistance();
             updateUserStatus("online");
@@ -81,14 +80,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
     private void VerifyUserExistance() {
         String currentUserID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
         rootRef.child("Users").child(currentUserID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(!(dataSnapshot.child("name").exists())){
+                if (!(dataSnapshot.child("name").exists())) {
                     SendUserToSettingsActivity();
                 }
             }
@@ -113,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu){
+    public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.options_menu, menu);
         return true;
@@ -125,24 +122,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
+    public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
 
-        if(item.getItemId() == R.id.main_logout_option){
+        if (item.getItemId() == R.id.main_logout_option) {
             updateUserStatus("offline");
             mAuth.signOut();
             SendUserToLoginActivity();
         }
 
-        if(item.getItemId() == R.id.main_settings_option){
+        if (item.getItemId() == R.id.main_settings_option) {
             SendUserToSettingsActivity();
         }
 
-        if(item.getItemId() == R.id.main_create_group_option){
+        if (item.getItemId() == R.id.main_create_group_option) {
             RequestNewGroup();
         }
 
-        if(item.getItemId() == R.id. main_find_friends_option){
+        if (item.getItemId() == R.id.main_find_friends_option) {
             SendUserToFindFriendsActivity();
         }
         return true;
@@ -158,10 +155,9 @@ public class MainActivity extends AppCompatActivity {
 
         builder.setPositiveButton("Create", (dialog, which) -> {
             final String groupName = groupNameField.getText().toString();
-            if(TextUtils.isEmpty(groupName)){
+            if (TextUtils.isEmpty(groupName)) {
                 Toast.makeText(MainActivity.this, "Please write Group Name..", Toast.LENGTH_SHORT).show();
-            }
-            else{
+            } else {
                 CreateNewGroup(groupName);
             }
         });
@@ -174,20 +170,20 @@ public class MainActivity extends AppCompatActivity {
     private void CreateNewGroup(final String groupName) {
         rootRef.child("Groups").child(groupName).setValue("").
                 addOnCompleteListener(task -> {
-                    if(task.isSuccessful()){
+                    if (task.isSuccessful()) {
                         Toast.makeText(MainActivity.this, groupName + " group is Create Successfully...", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
 
-    private void updateUserStatus(String state){
+    private void updateUserStatus(String state) {
         String saveCurrentUserTime, saveCurrentUserDate;
         Calendar calendar = Calendar.getInstance();
         @SuppressLint("SimpleDateFormat")
-        SimpleDateFormat currentDate  = new SimpleDateFormat("MMM dd, yyyy");
+        SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, yyyy");
         saveCurrentUserDate = currentDate.format(calendar.getTime());
         @SuppressLint("SimpleDateFormat")
-        SimpleDateFormat currentTime  = new SimpleDateFormat("hh:mm ss");
+        SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm ss");
         saveCurrentUserTime = currentTime.format(calendar.getTime());
 
         HashMap<String, Object> onlineStateMap = new HashMap<>();

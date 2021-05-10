@@ -15,9 +15,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.demogroupchat.pojo.Contacts;
 import com.example.demogroupchat.R;
 import com.example.demogroupchat.activity.ChatActivity;
+import com.example.demogroupchat.pojo.Contacts;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,7 +37,7 @@ public class ChatsFragment extends Fragment {
 
     private RecyclerView chatsList;
     private DatabaseReference chatsRef, usersRef;
-    String currentUserId,senderName;
+    String currentUserId, senderName;
 
     public ChatsFragment() {
         // Required empty public constructor
@@ -49,7 +49,7 @@ public class ChatsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
-         currentUserId = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
+        currentUserId = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
         View privateChatsView = inflater.inflate(R.layout.fragment_chats, container, false);
 
         chatsRef = FirebaseDatabase.getInstance().getReference().child("Contacts").child(currentUserId);
@@ -72,7 +72,7 @@ public class ChatsFragment extends Fragment {
                     @Override
                     protected void onBindViewHolder(@NonNull final ChatsViewHolder holder, int position, @NonNull Contacts model) {
                         final String userIds = getRef(position).getKey();
-                        final String [] profileImage = {"default"};
+                        final String[] profileImage = {"default"};
                         assert userIds != null;
                         usersRef.child(currentUserId).addValueEventListener(new ValueEventListener() {
                             @Override
@@ -90,7 +90,7 @@ public class ChatsFragment extends Fragment {
                             @SuppressLint("SetTextI18n")
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                if(dataSnapshot.hasChild("image")){
+                                if (dataSnapshot.hasChild("image")) {
                                     profileImage[0] = Objects.requireNonNull(dataSnapshot.child("image").getValue()).toString();
                                     Picasso.get().load(profileImage[0]).placeholder(R.drawable.profile_image).into(holder.profileImage);
                                 }
@@ -98,21 +98,19 @@ public class ChatsFragment extends Fragment {
                                 final String userName = Objects.requireNonNull(dataSnapshot.child("name").getValue()).toString();
                                 holder.userName.setText(userName);
 
-                                if(dataSnapshot.child("userState").hasChild("state")){
+                                if (dataSnapshot.child("userState").hasChild("state")) {
                                     String state = Objects.requireNonNull(dataSnapshot.child("userState").child("state").getValue()).toString();
                                     String date = Objects.requireNonNull(dataSnapshot.child("userState").child("date").getValue()).toString();
                                     String time = Objects.requireNonNull(dataSnapshot.child("userState").child("time").getValue()).toString();
 
-                                    if(state.equals("online")){
+                                    if (state.equals("online")) {
                                         holder.userStatus.setText("Online");
                                         holder.userOnlineStatus.setImageResource(R.drawable.online);
-                                    }
-                                    else if(state.equals("offline")){
-                                        holder.userStatus.setText("Last Active\n"+ date + " " + time);
+                                    } else if (state.equals("offline")) {
+                                        holder.userStatus.setText("Last Active\n" + date + " " + time);
                                         holder.userOnlineStatus.setImageResource(R.drawable.offline);
                                     }
-                                }
-                                else{
+                                } else {
                                     holder.userStatus.setText("Offline");
                                 }
 
@@ -146,7 +144,7 @@ public class ChatsFragment extends Fragment {
         adapter.startListening();
     }
 
-    public static class ChatsViewHolder extends RecyclerView.ViewHolder{
+    public static class ChatsViewHolder extends RecyclerView.ViewHolder {
         CircleImageView profileImage;
         TextView userStatus, userName;
         ImageView userOnlineStatus;

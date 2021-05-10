@@ -4,7 +4,7 @@ public class Messages {
     private String from, message, type, time;
     private boolean isseen;
 
-    public Messages(String from, String message, String type, String time,boolean isseen) {
+    public Messages(String from, String message, String type, String time, boolean isseen) {
         this.from = from;
         this.message = message;
         this.type = type;

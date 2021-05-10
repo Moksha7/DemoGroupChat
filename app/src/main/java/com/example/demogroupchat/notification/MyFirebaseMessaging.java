@@ -43,7 +43,7 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
                 });
 
         //String refreshToken = String.valueOf(FirebaseMessaging.getInstance().getToken(true));
-        if (firebaseUser != null){
+        if (firebaseUser != null) {
             updateToken(refreshToken);
         }
     }
@@ -69,7 +69,7 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
 
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        if (firebaseUser != null && sented.equals(firebaseUser.getUid())){
+        if (firebaseUser != null && sented.equals(firebaseUser.getUid())) {
             if (!currentUser.equals(user)) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     sendOreoNotification(remoteMessage);
@@ -80,7 +80,7 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
         }
     }
 
-    private void sendOreoNotification(RemoteMessage remoteMessage){
+    private void sendOreoNotification(RemoteMessage remoteMessage) {
         String user = remoteMessage.getData().get("user");
         String icon = remoteMessage.getData().get("icon");
         String title = remoteMessage.getData().get("title");
@@ -100,7 +100,7 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
                 defaultSound, icon);
 
         int i = 0;
-        if (j > 0){
+        if (j > 0) {
             i = j;
         }
 
@@ -124,17 +124,17 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
         PendingIntent pendingIntent = PendingIntent.getActivity(this, j, intent, PendingIntent.FLAG_ONE_SHOT);
 
         Uri defaultSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this,CHANNEL_NAME)
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_NAME)
                 .setSmallIcon(Integer.parseInt(icon))
                 .setContentTitle(title)
                 .setContentText(body)
                 .setAutoCancel(true)
                 .setSound(defaultSound)
                 .setContentIntent(pendingIntent);
-        NotificationManager noti = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager noti = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         int i = 0;
-        if (j > 0){
+        if (j > 0) {
             i = j;
         }
 

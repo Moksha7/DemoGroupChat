@@ -23,7 +23,7 @@ import java.util.Objects;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private Button   btnCreateAccount;
+    private Button btnCreateAccount;
     private EditText etUserEmail, etUserPassword;
     private TextView tvAlreadyHaveAccount;
 
@@ -31,7 +31,6 @@ public class RegisterActivity extends AppCompatActivity {
     private DatabaseReference rootRef;
     private ProgressDialog loadingBar;
     String deviceToken;
-
 
 
     @Override
@@ -63,7 +62,7 @@ public class RegisterActivity extends AppCompatActivity {
         startActivity(loginIntent);
     }
 
-    private void SendUserToMainActivity(){
+    private void SendUserToMainActivity() {
         Intent mainIntent = new Intent(RegisterActivity.this, MainActivity.class);
         mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(mainIntent);
@@ -74,13 +73,11 @@ public class RegisterActivity extends AppCompatActivity {
         String email = etUserEmail.getText().toString();
         String password = etUserPassword.getText().toString();
 
-        if(TextUtils.isEmpty(email)){
+        if (TextUtils.isEmpty(email)) {
             Toast.makeText(this, "Please enter email...", Toast.LENGTH_LONG).show();
-        }
-        else if(TextUtils.isEmpty(password)){
+        } else if (TextUtils.isEmpty(password)) {
             Toast.makeText(this, "Please enter password...", Toast.LENGTH_LONG).show();
-        }
-        else {
+        } else {
             loadingBar.setTitle("Creating New Account");
             loadingBar.setMessage("Please wait, while we are creating new account for you");
             loadingBar.setCanceledOnTouchOutside(true);
@@ -88,7 +85,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(task -> {
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task12 -> {
                                 if (!task12.isSuccessful()) {
                                     Log.w("TAG", "Fetching FCM registration token failed", task12.getException());
@@ -99,13 +96,12 @@ public class RegisterActivity extends AppCompatActivity {
                             String currentUserID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
                             rootRef.child("Users").child(currentUserID).setValue("");
                             rootRef.child("Users").child(currentUserID).child("deviceToken")
-                            .setValue(deviceToken);
+                                    .setValue(deviceToken);
 
 
                             SendUserToMainActivity();
                             Toast.makeText(RegisterActivity.this, "Account Created Successfully...", Toast.LENGTH_LONG).show();
-                        }
-                        else {
+                        } else {
                             String message = Objects.requireNonNull(task.getException()).toString();
                             Toast.makeText(RegisterActivity.this, "Error : " + message, Toast.LENGTH_LONG).show();
                         }

@@ -13,9 +13,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.demogroupchat.pojo.GroupMessage;
 import com.example.demogroupchat.R;
 import com.example.demogroupchat.adapter.GroupAdapter;
+import com.example.demogroupchat.pojo.GroupMessage;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -76,12 +76,12 @@ public class GroupChatActivity extends AppCompatActivity {
     }
 
     @Override
-    protected  void onStart(){
+    protected void onStart() {
         super.onStart();
         groupNameRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                if(dataSnapshot.exists()){
+                if (dataSnapshot.exists()) {
                     DisplayMessages(dataSnapshot);
                 }
             }
@@ -110,17 +110,16 @@ public class GroupChatActivity extends AppCompatActivity {
 
     private void DisplayMessages(DataSnapshot dataSnapshot) {
         Iterator<DataSnapshot> iterator = dataSnapshot.getChildren().iterator();
-        while(iterator.hasNext()){
-            String chatDate = (String)((DataSnapshot)iterator.next()).getValue();
-            String chatMessage = (String)((DataSnapshot)iterator.next()).getValue();
-            String chatName = (String)((DataSnapshot)iterator.next()).getValue();
-            String chatTime = (String)((DataSnapshot)iterator.next()).getValue();
+        while (iterator.hasNext()) {
+            String chatDate = (String) ((DataSnapshot) iterator.next()).getValue();
+            String chatMessage = (String) ((DataSnapshot) iterator.next()).getValue();
+            String chatName = (String) ((DataSnapshot) iterator.next()).getValue();
+            String chatTime = (String) ((DataSnapshot) iterator.next()).getValue();
             if (currentUserName.equals(chatName)) {
 
-                listItems.add(new GroupMessage("","","","",chatMessage,chatDate,chatTime));
-            }
-            else {
-                listItems.add(new GroupMessage(chatName,chatMessage,chatDate,chatTime,"","",""));
+                listItems.add(new GroupMessage("", "", "", "", chatMessage, chatDate, chatTime));
+            } else {
+                listItems.add(new GroupMessage(chatName, chatMessage, chatDate, chatTime, "", "", ""));
             }
         }
 
@@ -134,10 +133,9 @@ public class GroupChatActivity extends AppCompatActivity {
         String message = etUserMessageInput.getText().toString();
         String messageKey = groupNameRef.push().getKey();
 
-        if(TextUtils.isEmpty(message)){
+        if (TextUtils.isEmpty(message)) {
             Toast.makeText(this, "Please write message first...", Toast.LENGTH_SHORT).show();
-        }
-        else{
+        } else {
             Calendar calForDate = Calendar.getInstance();
             @SuppressLint("SimpleDateFormat")
             SimpleDateFormat currentDateFormat = new SimpleDateFormat("MMM dd, yyyy");
@@ -169,7 +167,7 @@ public class GroupChatActivity extends AppCompatActivity {
         userRef.child(currentUserID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
+                if (dataSnapshot.exists()) {
                     currentUserName = Objects.requireNonNull(dataSnapshot.child("name").getValue()).toString();
                 }
             }

@@ -2,7 +2,9 @@ package com.example.demogroupchat.pojo;
 
 public class Contacts {
 
-    public Contacts(){}
+    public Contacts() {
+    }
+
     public Contacts(String name, String status, String image) {
         this.name = name;
         this.status = status;

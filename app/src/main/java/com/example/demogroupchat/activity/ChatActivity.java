@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,15 +20,15 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.demogroupchat.adapter.MessageAdapter;
-import com.example.demogroupchat.pojo.Messages;
 import com.example.demogroupchat.R;
+import com.example.demogroupchat.adapter.MessageAdapter;
 import com.example.demogroupchat.notification.APIService;
 import com.example.demogroupchat.notification.Client;
 import com.example.demogroupchat.notification.Data;
 import com.example.demogroupchat.notification.MyResponse;
 import com.example.demogroupchat.notification.Sender;
 import com.example.demogroupchat.notification.Token;
+import com.example.demogroupchat.pojo.Messages;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -71,7 +70,7 @@ public class ChatActivity extends AppCompatActivity {
 
     APIService apiService;
     boolean notify = false;
-    String messagePushID,senderName;
+    String messagePushID, senderName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,10 +104,9 @@ public class ChatActivity extends AppCompatActivity {
 
     private void SendMessage() {
         String messageText = etMessageInputText.getText().toString();
-        if(TextUtils.isEmpty(messageText)){
+        if (TextUtils.isEmpty(messageText)) {
             Toast.makeText(this, "first write your message...", Toast.LENGTH_LONG).show();
-        }
-        else {
+        } else {
             Calendar calForTime = Calendar.getInstance();
             @SuppressLint("SimpleDateFormat")
             SimpleDateFormat currentTimeFormat = new SimpleDateFormat("hh:mm a");
@@ -135,10 +133,9 @@ public class ChatActivity extends AppCompatActivity {
             messageBodyDetails.put(messageReceiverRef + "/" + messagePushID, messageTextBody);
 
             rootRef.updateChildren(messageBodyDetails).addOnCompleteListener((OnCompleteListener<Void>) task -> {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     Toast.makeText(ChatActivity.this, "Message Sent Successfully...", Toast.LENGTH_SHORT).show();
-                    }
-                else {
+                } else {
                     Toast.makeText(ChatActivity.this, "Error", Toast.LENGTH_SHORT).show();
                     //notify = false;
 
@@ -148,9 +145,9 @@ public class ChatActivity extends AppCompatActivity {
 
         }
 
-        if(notify){
-            sendNotifiaction(senderName,messageText);
-        }else{
+        if (notify) {
+            sendNotifiaction(senderName, messageText);
+        } else {
             notify = false;
         }
     }
@@ -163,20 +160,20 @@ public class ChatActivity extends AppCompatActivity {
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(0);
-        LayoutInflater layoutInflater = (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater layoutInflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         @SuppressLint("InflateParams")
         View actionBarView = layoutInflater.inflate(R.layout.custom_chat_bar, null);
 
         actionBar.setCustomView(actionBarView);
 
-        civUserImage = (CircleImageView)findViewById(R.id.custom_profile_image);
-        tvUserName = (TextView)findViewById(R.id.custom_profile_name);
+        civUserImage = (CircleImageView) findViewById(R.id.custom_profile_image);
+        tvUserName = (TextView) findViewById(R.id.custom_profile_name);
 
-        btnSendMessage = (ImageButton)findViewById(R.id.send_message_btn);
-        etMessageInputText = (EditText)findViewById(R.id.input_message);
+        btnSendMessage = (ImageButton) findViewById(R.id.send_message_btn);
+        etMessageInputText = (EditText) findViewById(R.id.input_message);
 
         messageAdapter = new MessageAdapter(messagesList);
-        userMessagesList = (RecyclerView)findViewById(R.id.private_message_list_of_users);
+        userMessagesList = (RecyclerView) findViewById(R.id.private_message_list_of_users);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         userMessagesList.setLayoutManager(linearLayoutManager);
         userMessagesList.setAdapter(messageAdapter);
@@ -217,34 +214,34 @@ public class ChatActivity extends AppCompatActivity {
                 });
     }
 
-    private void sendNotifiaction(final String username, final String message){
+    private void sendNotifiaction(final String username, final String message) {
 
-                    Token token = new Token(messagePushID);
-                    Data data = new Data(messageSenderID, R.mipmap.ic_launcher, username+": "+message, "New Message",
-                            messageReceiverID);
+        Token token = new Token(messagePushID);
+        Data data = new Data(messageSenderID, R.mipmap.ic_launcher, username + ": " + message, "New Message",
+                messageReceiverID);
 
-                    Sender sender = new Sender(data, token.getToken());
+        Sender sender = new Sender(data, token.getToken());
 
-                    apiService.sendNotification(sender)
-                            .enqueue(new Callback<MyResponse>() {
-                                @Override
-                                public void onResponse(@NonNull Call<MyResponse> call, @NonNull Response<MyResponse> response) {
-                                    if (response.code() == 200){
-                                        if (response.body().success != 1){
-                                            Toast.makeText(ChatActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
-                                        }
-                                        Toast.makeText(ChatActivity.this, "send!", Toast.LENGTH_LONG).show();
-                                    }
-                                }
+        apiService.sendNotification(sender)
+                .enqueue(new Callback<MyResponse>() {
+                    @Override
+                    public void onResponse(@NonNull Call<MyResponse> call, @NonNull Response<MyResponse> response) {
+                        if (response.code() == 200) {
+                            if (response.body().success != 1) {
+                                Toast.makeText(ChatActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
+                            }
+                            Toast.makeText(ChatActivity.this, "send!", Toast.LENGTH_LONG).show();
+                        }
+                    }
 
-                                @Override
-                                public void onFailure(@NonNull Call<MyResponse> call, @NonNull Throwable t) {
+                    @Override
+                    public void onFailure(@NonNull Call<MyResponse> call, @NonNull Throwable t) {
 
-                                }
-                            });
-                }
+                    }
+                });
+    }
 
-    private void currentUser(String userid){
+    private void currentUser(String userid) {
         SharedPreferences.Editor editor = getSharedPreferences("PREFS", MODE_PRIVATE).edit();
         editor.putString("currentuser", userid);
         editor.apply();
@@ -261,8 +258,6 @@ public class ChatActivity extends AppCompatActivity {
         super.onPause();
         currentUser("none");
     }
-
-
 
 
 }

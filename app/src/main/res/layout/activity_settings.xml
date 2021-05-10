@@ -1,108 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.SettingsActivity">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-    <include layout="@layout/app_bar_layout"
-        android:id="@+id/settings_toolbar"/>
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/set_profile_image"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/settings_toolbar"
-        android:layout_marginTop="70dp"
-        android:src="@drawable/profile_image"
-        android:layout_marginBottom="10dp"
-        app:civ_border_width="2dp"
-        app:civ_border_color="@color/colorPrimary"/>
-
-
-    <EditText
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/set_user_name"
-        android:layout_below="@+id/set_profile_image"
-        android:inputType="textMultiLine"
-        android:hint="@string/username"
-        android:textAlignment="center"
-        android:drawableStart="@drawable/edit_profile"
-        android:drawableTint="@color/colorPrimaryDark"
-        android:textColorHint="@color/colorPrimaryLight"
-        android:textColor="@color/colorPrimaryDark"
-        android:textStyle="bold"
-        android:background="@drawable/inputs"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:padding="6dp"
-        android:layout_marginBottom="5dp"
-        tools:targetApi="m"
-        android:importantForAutofill="no" />
+        android:layout_height="match_parent">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/set_profile_status"
-        android:layout_below="@+id/set_user_name"
-        android:inputType="textMultiLine"
-        android:drawableTint="@color/colorPrimaryDark"
-        android:textColorHint="@color/colorPrimaryLight"
-        android:hint="@string/default_status"
-        android:textAlignment="center"
-        android:drawableStart="@drawable/edit_status"
-        android:textColor="@color/colorPrimaryDark"
-        android:textStyle="bold"
-        android:background="@drawable/inputs"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:padding="6dp"
-        android:textSize="20sp"
-        android:layout_marginBottom="10dp"
-        tools:targetApi="m"
-        android:importantForAutofill="no" />
+        <include
+            android:id="@+id/settings_toolbar"
+            layout="@layout/app_bar_layout" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/update_settings_button"
-        android:layout_below="@+id/set_profile_status"
-        android:text="@string/update"
-        android:textAlignment="center"
-        android:textColor="@color/colorAccent"
-        android:textStyle="bold"
-        android:background="@drawable/buttons"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:padding="6dp"
-        android:textSize="20sp"
-        android:textAllCaps="false"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/change_password_button"
-        android:layout_below="@+id/update_settings_button"
-        android:text="@string/change_password"
-        android:textAlignment="center"
-        android:textColor="@color/colorAccent"
-        android:textStyle="bold"
-        android:background="@drawable/buttons"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:padding="6dp"
-        android:textSize="20sp"
-        android:textAllCaps="false"/>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/set_profile_image"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_below="@+id/settings_toolbar"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="70dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/profile_image"
+            app:civ_border_color="@color/colorPrimary"
+            app:civ_border_width="2dp" />
 
 
-</RelativeLayout>
+        <EditText
+            android:id="@+id/set_user_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/set_profile_image"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/inputs"
+            android:drawableStart="@drawable/edit_profile"
+            android:drawableTint="@color/colorPrimaryDark"
+            android:hint="@string/username"
+            android:importantForAutofill="no"
+            android:inputType="textMultiLine"
+            android:padding="6dp"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textColorHint="@color/colorPrimaryLight"
+            android:textStyle="bold"
+            tools:targetApi="m" />
+
+        <EditText
+            android:id="@+id/set_profile_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/set_user_name"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/inputs"
+            android:drawableStart="@drawable/edit_status"
+            android:drawableTint="@color/colorPrimaryDark"
+            android:hint="@string/default_status"
+            android:importantForAutofill="no"
+            android:inputType="textMultiLine"
+            android:padding="6dp"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textColorHint="@color/colorPrimaryLight"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:targetApi="m" />
+
+        <Button
+            android:id="@+id/update_settings_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/set_profile_status"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/buttons"
+            android:padding="6dp"
+            android:text="@string/update"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/colorAccent"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/change_password_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/update_settings_button"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/buttons"
+            android:padding="6dp"
+            android:text="@string/change_password"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/colorAccent"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+
+    </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

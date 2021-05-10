@@ -75,7 +75,7 @@ public class FindFriendActivity extends AppCompatActivity {
                     public FindFriendViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
                         View view = LayoutInflater.from(viewGroup.getContext())
-                                .inflate(R.layout.users_display_layout,viewGroup, false);
+                                .inflate(R.layout.users_display_layout, viewGroup, false);
                         return new FindFriendViewHolder(view);
 
                     }
@@ -85,8 +85,7 @@ public class FindFriendActivity extends AppCompatActivity {
         adapter.startListening();
     }
 
-    public static class FindFriendViewHolder extends RecyclerView.ViewHolder
-    {
+    public static class FindFriendViewHolder extends RecyclerView.ViewHolder {
         TextView userName, userStatus;
         CircleImageView profileImage;
 

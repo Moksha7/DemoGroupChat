@@ -59,13 +59,12 @@ public class LoginActivity extends AppCompatActivity {
     private void ResetPassword() {
         if (etUserEmail.getText().toString().matches(""))
             Toast.makeText(LoginActivity.this, "Please enter the account's email!", Toast.LENGTH_SHORT).show();
-        else{
+        else {
             mAuth.sendPasswordResetEmail(etUserEmail.getText().toString())
                     .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             Toast.makeText(LoginActivity.this, "Email sent", Toast.LENGTH_SHORT).show();
-                        }
-                        else
+                        } else
                             Toast.makeText(LoginActivity.this, "Failed to reset password", Toast.LENGTH_SHORT).show();
                     });
         }
@@ -79,8 +78,7 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(this, "Please enter email...", Toast.LENGTH_LONG).show();
         } else if (TextUtils.isEmpty(password)) {
             Toast.makeText(this, "Please enter password...", Toast.LENGTH_LONG).show();
-        }
-        else{
+        } else {
             loadingBar.setTitle(R.string.logging_in);
             loadingBar.setMessage("Please wait....");
             loadingBar.setCanceledOnTouchOutside(true);
@@ -136,7 +134,7 @@ public class LoginActivity extends AppCompatActivity {
         loadingBar = new ProgressDialog(this);
     }
 
-    private void updateToken(String token){
+    private void updateToken(String token) {
         Token token1 = new Token(token);
         userRef.child(currentUser.getUid()).setValue(token1);
 
