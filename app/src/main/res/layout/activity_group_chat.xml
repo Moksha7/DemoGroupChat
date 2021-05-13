@@ -16,7 +16,7 @@
 
             <include
                 android:id="@+id/group_chat_bar_layout"
-                layout="@layout/app_bar_layout"></include>
+                layout="@layout/app_bar_layout" />
 
             <ListView
                 android:id="@+id/group_chat_text_display"

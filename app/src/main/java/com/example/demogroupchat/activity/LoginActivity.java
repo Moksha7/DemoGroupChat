@@ -13,7 +13,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.demogroupchat.R;
-import com.example.demogroupchat.notification.Token;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -134,11 +133,7 @@ public class LoginActivity extends AppCompatActivity {
         loadingBar = new ProgressDialog(this);
     }
 
-    private void updateToken(String token) {
-        Token token1 = new Token(token);
-        userRef.child(currentUser.getUid()).setValue(token1);
 
-    }
 
 
     @Override

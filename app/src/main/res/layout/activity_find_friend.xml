@@ -11,7 +11,7 @@
 
         <include
             android:id="@+id/find_friends_toolbar"
-            layout="@layout/app_bar_layout"></include>
+            layout="@layout/app_bar_layout" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/find_friends_recycler_list"

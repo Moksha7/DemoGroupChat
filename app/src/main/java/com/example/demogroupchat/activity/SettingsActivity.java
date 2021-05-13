@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -186,13 +187,12 @@ public class SettingsActivity extends AppCompatActivity {
                                 .setValue(downloadUri)
                                 .addOnCompleteListener(task1 -> {
                                     if (task1.isSuccessful()) {
-                                        // Toast.makeText(SettingsActivity.this, "Image save on database, successfully...", Toast.LENGTH_SHORT).show();
-                                        loadingBar.dismiss();
+                                        Toast.makeText(SettingsActivity.this, "Image save on database, successfully...", Toast.LENGTH_SHORT).show();
                                     } else {
                                         String message = task1.getException().toString();
                                         Toast.makeText(SettingsActivity.this, "Error : " + message, Toast.LENGTH_SHORT).show();
-                                        loadingBar.dismiss();
                                     }
+                                    loadingBar.dismiss();
                                 });
                     } else {
                         String message = Objects.requireNonNull(task.getException()).toString();
@@ -202,6 +202,7 @@ public class SettingsActivity extends AppCompatActivity {
                 });
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
+                Log.d("Setting Activity", error.getMessage());
             }
         }
     }

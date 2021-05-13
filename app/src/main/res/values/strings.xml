@@ -43,9 +43,10 @@
     <string name="john_doe">John Doe</string>
     <string name="hi_man_how_are">hi man, how are?</string>
 
-    <string name="receiver_messages_here">receiver messages here</string>
+
     <string name="_11_45">11:45</string>
     <string name="sender_messages">sender messages</string>
     <string name="user_name">user name</string>
     <string name="hey_i_am_using_mychat_app">Hey, I am using MyChat app.</string>
+    <string name="receiver_messages_here">receiver messages here</string>
 </resources>

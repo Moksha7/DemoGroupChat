@@ -16,12 +16,10 @@ import java.util.ArrayList;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class GroupAdapter extends ArrayAdapter<GroupMessage> {
-    private ArrayList<GroupMessage> dataSet;
     Context mContext;
 
     public GroupAdapter(ArrayList<GroupMessage> data, Context context) {
         super(context, R.layout.item_message_group, data);
-        this.dataSet = data;
         this.mContext = context;
     }
 
@@ -30,7 +28,6 @@ public class GroupAdapter extends ArrayAdapter<GroupMessage> {
     public View getView(int position, View convertView, ViewGroup parent) {
         GroupMessage groupMess = getItem(position);
         ViewHolder viewHolder;
-        final View result;
 
         if (convertView == null) {
             viewHolder = new ViewHolder();
@@ -46,8 +43,6 @@ public class GroupAdapter extends ArrayAdapter<GroupMessage> {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-
-        lastPosition = position;
 
         viewHolder.receiverAvt.setVisibility(View.INVISIBLE);
         viewHolder.receiverName.setVisibility(View.INVISIBLE);
@@ -73,8 +68,6 @@ public class GroupAdapter extends ArrayAdapter<GroupMessage> {
 
         return convertView;
     }
-
-    private int lastPosition = -1;
 
     private static class ViewHolder {
         CircleImageView receiverAvt;

@@ -1,27 +1,8 @@
 package com.example.demogroupchat.pojo;
 
 public class Messages {
-    private String from, message, type, time;
+    private String from, message, type, time, to, messageID, date, name;
     private boolean isseen;
-
-    public Messages(String from, String message, String type, String time, boolean isseen) {
-        this.from = from;
-        this.message = message;
-        this.type = type;
-        this.time = time;
-        this.isseen = isseen;
-    }
-
-    public boolean getIsseen() {
-        return isseen;
-    }
-
-    public void setIsseen(boolean isseen) {
-        this.isseen = isseen;
-    }
-
-    public Messages() {
-    }
 
     public String getFrom() {
         return from;
@@ -55,5 +36,35 @@ public class Messages {
         this.time = time;
     }
 
+    public String getTo() {
+        return to;
+    }
 
+    public void setTo(String to) {
+        this.to = to;
+    }
+
+    public String getMessageID() {
+        return messageID;
+    }
+
+    public void setMessageID(String messageID) {
+        this.messageID = messageID;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
