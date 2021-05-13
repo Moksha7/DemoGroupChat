@@ -42,8 +42,7 @@
     <string name="_11_00">11:00</string>
     <string name="john_doe">John Doe</string>
     <string name="hi_man_how_are">hi man, how are?</string>
-
-
+    <string name="hi">hi</string>
     <string name="_11_45">11:45</string>
     <string name="sender_messages">sender messages</string>
     <string name="user_name">user name</string>
